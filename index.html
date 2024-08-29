@@ -1,0 +1,121 @@
+<html>
+	<head>	
+	
+	<script language="javaScript">	
+
+	var minPretas, segPretas;		minPretas = 15;		segPretas = 0;
+	var minBrancas, segBrancas;		minBrancas = 15;	segBrancas = 0;
+	var vez = 'brancas'; 
+
+	function relogio() {
+		document.getElementById('spanRelogioPretas').innerHTML = minPretas + ":0" + segPretas;
+		document.getElementById('spanRelogioBrancas').innerHTML = minBrancas + ":0" + segBrancas;
+		document.getElementById("pretas").disabled = true;
+		document.getElementById("brancas").disabled = true;
+	}
+
+	function start() {
+		document.getElementById("brancas").disabled = false;
+		setTimeout('diminuiTempoBrancas()', 1000);
+		document.getElementById("start").disabled = true;
+	}
+
+	function botaoPretas() {
+		document.getElementById("pretas").disabled = true;
+		vez = 'brancas'
+		document.getElementById("brancas").disabled = false;
+		setTimeout('diminuiTempoBrancas()', 1000);					
+	}
+
+	function botaoBrancas() {
+		document.getElementById("brancas").disabled = true;
+		vez = 'pretas'
+		document.getElementById("pretas").disabled = false;
+		setTimeout('diminuiTempoPretas()', 1000);		
+	}
+
+	function diminuiTempoPretas(){			
+		if((minPretas > 0) || (segPretas > 0)){				
+			if(segPretas == 0){					
+				segPretas = 59;					
+				minPretas = minPretas - 1;	
+			}				
+			else{					
+				segPretas = segPretas - 1;				
+			}				
+			if(minPretas.toString().length == 1){					
+				minPretas = "0" + minPretas;				
+			}				
+			if(segPretas .toString().length == 1){					
+				segPretas = "0" + segPretas;				
+			}				
+			document.getElementById('spanRelogioPretas').innerHTML = minPretas + ":" + segPretas;
+			if ( vez === 'pretas') {
+				setTimeout('diminuiTempoPretas()', 1000);
+			}
+		}			
+		else{				
+			document.getElementById('spanRelogioPretas').innerHTML = "00:00";			
+		}		
+	}
+
+	function diminuiTempoBrancas(){			
+		if((minBrancas > 0) || (segBrancas > 0)){				
+			if(segBrancas == 0){					
+				segBrancas = 59;					
+				minBrancas = minBrancas - 1;	
+			}				
+			else{					
+				segBrancas = segBrancas - 1;				
+			}				
+			if(minBrancas.toString().length == 1){					
+				minBrancas = "0" + minBrancas;				
+			}				
+			if(segBrancas.toString().length == 1){					
+				segBrancas = "0" + segBrancas;				
+			}				
+			document.getElementById('spanRelogioBrancas').innerHTML = minBrancas + ":" + segBrancas;
+			if ( vez === 'brancas') {
+				setTimeout('diminuiTempoBrancas()', 1000);
+			}
+		}			
+		else{				
+			document.getElementById('spanRelogioBrancas').innerHTML = "00:00";			
+		}		
+	}
+	
+	</script>
+	
+	</head>
+
+	<body onLoad="relogio()" >
+
+		<table style="font-family:verdana;font-size:50px;text-align:center">
+			<tr>
+				<td>
+					<span id="spanRelogioPretas" style="color: #2ca334" ></span>
+				</td>
+				<td>
+				</td>
+				<td>
+					<span id="spanRelogioBrancas" style="color: #2afbc4" ></span>	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button id="pretas" style="padding: 10 20 10 20" onClick="botaoPretas()"> Peças Pretas</button>
+				</td>
+				<td>
+					<button id="start" style="padding: 10 5 10 5" onClick="start()"> Start</button>
+				</td>
+				<td>
+					<button id="brancas" style="padding: 10 20 10 20" onClick="botaoBrancas()"> Peças Brancas </button>	
+				</td>
+			</tr>
+		</table>
+			
+		
+		 
+	</body>
+
+</html>
